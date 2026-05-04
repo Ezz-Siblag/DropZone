@@ -1,0 +1,31 @@
+﻿﻿@page
+@model DropZone.Pages.AddSellerModel
+
+<h2>Add Seller</h2>
+
+<form method="post">
+    <div>
+        <label>Seller Name:</label>
+        <input type="text" asp-for="SellerName" required />
+    </div>
+
+    <div>
+        <label>Date Added:</label>
+        <input type="text" asp-for="DateAdded" placeholder="YYYY-MM-DD" required />
+    </div>
+
+    <br />
+
+    <button type="submit">Add Seller</button>
+</form>
+
+@if (Model.Message != null)
+{
+    <p>@Model.Message</p>
+}
+
+<br />
+
+<a asp-page="SellerList">
+    <button type="button">Back to Seller List</button>
+</a>

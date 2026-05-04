@@ -1,0 +1,44 @@
+﻿﻿@page
+@model DropZone.Pages.AllItemsModel
+
+<h2>All Items (NOT InDA)</h2>
+
+<a asp-page="SellerList">
+    <button type="button">Back</button>
+</a>
+
+@if (Model.Items.Count > 0)
+{
+    <table border="1">
+        <tr>
+            <th>ItemID</th>
+            <th>SellerID</th>
+            <th>Buyer</th>
+            <th>DateDropped</th>
+            <th>Price</th>
+            <th>HoldingFee</th>
+            <th>Status</th>
+            <th>Placed</th>
+            <th>DatePickedUp</th>
+        </tr>
+
+        @foreach (var i in Model.Items)
+        {
+            <tr>
+                <td>@i.ItemID</td>
+                <td>@i.SellerID</td>
+                <td>@i.BuyerName</td>
+                <td>@i.DateDropped</td>
+                <td>@i.Price</td>
+                <td>@i.HoldingFee</td>
+                <td>@i.ItemStatus</td>
+                <td>@i.Placed</td>
+                <td>@i.DatePickedUp</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No items found.</p>
+}

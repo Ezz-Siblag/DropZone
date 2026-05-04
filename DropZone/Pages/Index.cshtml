@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<link rel="stylesheet" href="~/css/home.css" />
+
+<div class="container">
+
+    <h1 class="title">Welcome to DropZone</h1>
+
+    <!-- QUICK ACTIONS -->
+    <div class="actions">
+        <a href="/SellerList" class="btn">Seller List</a>
+        <a href="/AddSeller" class="btn">Add Seller</a>
+    </div>
+
+    <!-- NOTES SECTION -->
+    <div class="notes-section">
+        <h2>Notes</h2>
+
+        <div class="add-note">
+            <input type="text" id="noteInput" placeholder="Write a note..." />
+            <button onclick="addNote()">Add</button>
+        </div>
+
+        <div id="notesContainer" class="notes-container"></div>
+    </div>
+
+</div>
+
+<script>
+    function addNote() {
+        const input = document.getElementById("noteInput");
+        const text = input.value.trim();
+
+        if (text === "") return;
+
+        const note = document.createElement("div");
+        note.className = "note";
+
+        note.innerHTML = `
+                <p>${text}</p>
+                <button onclick="this.parentElement.remove()">X</button>
+            `;
+
+        document.getElementById("notesContainer").appendChild(note);
+        input.value = "";
+    }
+</script>

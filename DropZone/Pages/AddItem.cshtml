@@ -1,0 +1,38 @@
+﻿@page
+@model DropZone.Pages.AddItemModel
+
+<h2>Add Item</h2>
+
+<a asp-page="SellerList">
+    <button type="button">Back</button>
+</a>
+
+<form method="post">
+
+    <input type="hidden" asp-for="Item.SellerID" />
+
+    Buyer Name:<br />
+    <input asp-for="Item.BuyerName" /><br /><br />
+
+    Date Dropped:<br />
+    <input asp-for="Item.DateDropped" type="date" /><br /><br />
+
+    Price:<br />
+    <input asp-for="Item.Price" type="number" step="0.01" /><br /><br />
+
+    Holding Fee:<br />
+    <input asp-for="Item.HoldingFee" type="number" /><br /><br />
+
+    Placed:<br />
+    <input asp-for="Item.Placed" /><br /><br />
+
+    Date Picked Up:<br />
+    <input asp-for="Item.DatePickedUp" type="date" /><br /><br />
+
+    <button type="submit">Add Item</button>
+</form>
+
+@if (Model.Message != null)
+{
+    <p style="color:green">@Model.Message</p>
+}

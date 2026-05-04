@@ -1,0 +1,48 @@
+﻿﻿@page "{id:int}"
+@model DropZone.Pages.UpdateItemModel
+
+<h2>Update Item</h2>
+
+<a asp-page="SellerList">
+    <button type="button">← Back</button>
+</a>
+
+<br />
+<br />
+
+<form method="post">
+
+    <input type="hidden" asp-for="Item.ItemID" />
+
+    Buyer Name:<br />
+    <input asp-for="Item.BuyerName" /><br /><br />
+
+    Date Dropped:<br />
+    <input asp-for="Item.DateDropped" type="date" /><br /><br />
+
+    Price:<br />
+    <input asp-for="Item.Price" type="number" step="0.01" /><br /><br />
+
+    Holding Fee:<br />
+    <input asp-for="Item.HoldingFee" type="number" /><br /><br />
+
+    Status:<br />
+    <select asp-for="Item.ItemStatus">
+        <option>InDA</option>
+        <option>Picked Up</option>
+        <option>Pulled Out</option>
+    </select><br /><br />
+
+    Placed:<br />
+    <input asp-for="Item.Placed" /><br /><br />
+
+    Date Picked Up:<br />
+    <input asp-for="Item.DatePickedUp" type="date" /><br /><br />
+
+    <button type="submit">Save</button>
+</form>
+
+@if (Model.Message != null)
+{
+    <p style="color:green">@Model.Message</p>
+}

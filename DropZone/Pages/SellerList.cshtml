@@ -1,0 +1,137 @@
+﻿@page
+@model DropZone.Pages.SellerListModel
+
+<h2>Sellers</h2>
+
+<table border="1">
+    <tr>
+        <th>SellerID</th>
+        <th>Seller Name</th>
+        <th>Date Added</th>
+    </tr>
+
+    @foreach (var s in Model.Sellers)
+    {
+        <tr>
+            <td>@s.SellerID</td>
+            <td>@s.SellerName</td>
+            <td>@s.DateAdded</td>
+        </tr>
+    }
+</table>
+
+<hr />
+
+<h3>Choose Seller</h3>
+
+<form method="post" asp-page-handler="LoadItems">
+
+    <!-- SELLER NOW DROPDOWN -->
+    <select asp-for="SellerID" required>
+        <option value="">-- Select Seller --</option>
+        @foreach (var s in Model.Sellers)
+        {
+            <option value="@s.SellerID">
+                @s.SellerName (ID: @s.SellerID)
+            </option>
+        }
+    </select>
+
+    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+
+        <button type="submit">
+            Load InDA Items
+        </button>
+
+        <button type="submit"
+                formaction="/AllItems?handler=Get"
+                formmethod="get">
+            Load All Items
+        </button>
+
+        <button type="submit"
+                formaction="/AddItem"
+                formmethod="get">
+            Add Item
+        </button>
+
+    </div>
+</form>
+
+<hr />
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p style="color:red">@Model.Message</p>
+}
+
+@if (Model.Items.Count > 0)
+{
+    <h3>Items (InDA Only)</h3>
+
+    <table border="1">
+        <tr>
+            <th>ItemID</th>
+            <th>SellerID</th>
+            <th>BuyerName</th>
+            <th>DateDropped</th>
+            <th>Price</th>
+            <th>HoldingFee</th>
+            <th>Status</th>
+            <th>Placed</th>
+            <th>DatePickedUp</th>
+        </tr>
+
+        @foreach (var i in Model.Items)
+        {
+            <tr>
+                <td>@i.ItemID</td>
+                <td>@i.SellerID</td>
+                <td>@i.BuyerName</td>
+                <td>@i.DateDropped</td>
+                <td>@i.Price</td>
+                <td>@i.HoldingFee</td>
+                <td>@i.ItemStatus</td>
+                <td>@i.Placed</td>
+                <td>@i.DatePickedUp</td>
+            </tr>
+        }
+    </table>
+
+    <hr />
+
+    <h3>Choose Item Action</h3>
+
+    <form method="post" asp-page-handler="ProcessAction">
+
+        <input type="hidden" asp-for="SellerID" />
+
+        <!-- ITEM NOW MANUAL INPUT -->
+        <label>Enter Item ID:</label>
+        <input asp-for="ItemID" type="number" required placeholder="Type Item ID" />
+
+        <br /><br />
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+
+            <button type="submit"
+                    onclick="document.getElementById('ActionType').value='Update'">
+                Update Item
+            </button>
+
+            <button type="submit"
+                    onclick="document.getElementById('ActionType').value='PickedUp'">
+                Picked Up
+            </button>
+
+            <button type="submit"
+                    onclick="document.getElementById('ActionType').value='PulledOut'">
+                Pulled Out
+            </button>
+
+        </div>
+
+        <input type="hidden" asp-for="ActionType" id="ActionType" />
+
+    </form>
+}
