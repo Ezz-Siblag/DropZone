@@ -1,0 +1,31 @@
+CREATE DATABASE DropZoneDB;
+USE DropZoneDB;
+
+CREATE TABLE Users (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(50) NOT NULL UNIQUE,
+    Password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Sellers (
+    SellerID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    SellerName VARCHAR(50),
+    DateAdded date, 
+    ContactNumber varchar (15),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+CREATE TABLE Items (
+    ItemID INT PRIMARY KEY AUTO_INCREMENT,
+    SellerID INT,
+    BuyerName VARCHAR(50),
+    DateDropped date,
+    price DECIMAL(10,2),
+    holdingFee INT,
+    itemStatus VARCHAR(30),
+    placed VARCHAR(50),
+    datePickedUp date, 
+    FOREIGN KEY (SellerID) REFERENCES Sellers(SellerID)
+);
+
