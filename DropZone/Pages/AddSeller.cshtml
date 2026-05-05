@@ -1,4 +1,4 @@
-﻿﻿@page
+﻿@page
 @model DropZone.Pages.AddSellerModel
 
 <h2>Add Seller</h2>
@@ -11,7 +11,11 @@
 
     <div>
         <label>Date Added:</label>
-        <input type="text" asp-for="DateAdded" placeholder="YYYY-MM-DD" required />
+        <input type="date" asp-for="DateAdded" required />
+    </div>
+    <div>
+        <label>Contact Number:</label>
+        <input type="text" asp-for="ContactNumber" required />
     </div>
 
     <br />
@@ -26,6 +30,7 @@
 
 <br />
 
+<!-- 🔒 KEEP YOUR ORIGINAL BUTTON STYLE -->
 <a asp-page="SellerList">
-    <button type="button">Back to Seller List</button>
+    <button type="button">Back</button>
 </a>

@@ -8,6 +8,7 @@
         <th>SellerID</th>
         <th>Seller Name</th>
         <th>Date Added</th>
+        <th>Contact Number</th>
     </tr>
 
     @foreach (var s in Model.Sellers)
@@ -16,6 +17,7 @@
             <td>@s.SellerID</td>
             <td>@s.SellerName</td>
             <td>@s.DateAdded</td>
+            <td>@s.ContactNumber</td>
         </tr>
     }
 </table>
@@ -40,7 +42,7 @@
     <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
 
         <button type="submit">
-            Load InDA Items
+            Load Current Items
         </button>
 
         <button type="submit"
@@ -52,7 +54,7 @@
         <button type="submit"
                 formaction="/AddItem"
                 formmethod="get">
-            Add Item
+            Add Item/s
         </button>
 
     </div>
@@ -72,7 +74,6 @@
     <table border="1">
         <tr>
             <th>ItemID</th>
-            <th>SellerID</th>
             <th>BuyerName</th>
             <th>DateDropped</th>
             <th>Price</th>
@@ -86,7 +87,6 @@
         {
             <tr>
                 <td>@i.ItemID</td>
-                <td>@i.SellerID</td>
                 <td>@i.BuyerName</td>
                 <td>@i.DateDropped</td>
                 <td>@i.Price</td>
@@ -103,8 +103,6 @@
     <h3>Choose Item Action</h3>
 
     <form method="post" asp-page-handler="ProcessAction">
-
-        <input type="hidden" asp-for="SellerID" />
 
         <!-- ITEM NOW MANUAL INPUT -->
         <label>Enter Item ID:</label>

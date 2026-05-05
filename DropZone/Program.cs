@@ -1,26 +1,62 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// =========================
+// SERVICES
+// =========================
 builder.Services.AddRazorPages();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// =========================
+// PIPELINE
+// =========================
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseRouting();
 
+// MUST be before auth middleware
+app.UseSession();
+
+// =========================
+// LOGIN PROTECTION MIDDLEWARE
+// =========================
+app.Use(async (context, next) =>
+{
+    var path = context.Request.Path.Value ?? "";
+
+    // Allow public pages
+    if (path.StartsWith("/Login") ||
+        path.StartsWith("/SignUp") ||   // ✅ FIX ADDED
+        path.StartsWith("/css") ||
+        path.StartsWith("/js") ||
+        path.StartsWith("/lib") ||
+        path.StartsWith("/Error"))
+    {
+        await next();
+        return;
+    }
+
+    var user = context.Session.GetString("User");
+
+    if (string.IsNullOrEmpty(user))
+    {
+        context.Response.Redirect("/Login");
+        return;
+    }
+
+    await next();
+});
+
 app.UseAuthorization();
 
-app.MapStaticAssets();
-app.MapRazorPages()
-   .WithStaticAssets();
+app.MapRazorPages();
 
 app.Run();

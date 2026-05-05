@@ -1,31 +1,373 @@
-html {
-  font-size: 14px;
+/* =========================
+   ROOT THEME
+========================= */
+:root {
+    --primary: #2a5298;
+    --primary-dark: #1e3c72;
+    --accent: #3498db;
+    --success: #2ecc71;
+    --danger: #e74c3c;
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --text: #333;
+    --border: #e6e6e6;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+/* =========================
+   BASE LAYOUT
+========================= */
+html, body {
+    height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* MAIN CONTAINER */
+.container {
+    flex: 1;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* =========================
+   HEADINGS
+========================= */
+h1, h2, h3 {
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+}
+
+/* =========================
+   LINKS (BUTTON STYLE)
+========================= */
+a.btn {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+    a.btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+    }
+
+/* =========================
+   BUTTONS
+========================= */
+button {
+    background: var(--primary);
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+}
+
+    button:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+    }
+
+    button:active {
+        transform: scale(0.97);
+    }
+
+/* =========================
+   ACTIONS
+========================= */
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+/* =========================
+   INPUTS & SELECT
+========================= */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 14px 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: 0.2s;
+    outline: none;
+    background: white;
+}
+
+    input:focus, select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 6px rgba(42,82,152,0.25);
+    }
+
+/* =========================
+   FORMS
+========================= */
+form {
+    background: var(--card);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   TABLES
+========================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    margin-top: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+th {
+    background: var(--primary);
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+tr {
+    transition: 0.15s;
+}
+
+    tr:hover {
+        background: #f2f7ff;
+    }
+
+/* =========================
+   LOGIN CARD
+========================= */
+.card {
+    width: 320px;
+    margin: 100px auto;
+    background: var(--card);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* =========================
+   STATUS COLORS
+========================= */
+.status-InDA {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.status-PickedUp {
+    color: var(--success);
+    font-weight: bold;
+}
+
+.status-PulledOut {
+    color: var(--danger);
+    font-weight: bold;
+}
+
+/* =========================
+   ERROR / MESSAGE
+========================= */
+.error {
+    color: var(--danger);
+    margin-top: 10px;
+}
+
+p {
+    margin-top: 10px;
+}
+
+/* =========================
+   DIVIDER
+========================= */
+hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid var(--border);
+}
+
+/* =========================
+   FOOTER FIX
+========================= */
+footer {
+    background: var(--primary-dark);
+    color: white;
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+
+/* =========================
+   INDEX PAGE IMPROVED CENTER LAYOUT
+========================= */
+.index-center {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* better than full center */
+    text-align: center;
+    padding-top: 60px; /* brings content down nicely */
+    gap: 25px;
+}
+
+    /* =========================
+   TITLE (cleaner look)
+========================= */
+    .index-center .title {
+        font-size: 42px;
+        font-weight: bold;
+        color: var(--primary-dark);
+        margin: 0;
+    }
+
+    /* =========================
+   QUICK ACTION BUTTONS (card style row)
+========================= */
+    .index-center .actions {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+        /* make buttons feel like tiles */
+        .index-center .actions a.btn {
+            min-width: 140px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+    /* =========================
+   NOTES SECTION (card upgrade)
+========================= */
+    .index-center .notes-section {
+        width: 100%;
+        max-width: 650px;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+        /* Notes title spacing */
+        .index-center .notes-section h2 {
+            margin-top: 0;
+        }
+
+    /* Input row better alignment */
+    .index-center .add-note {
+        display: flex;
+        gap: 10px;
+    }
+
+        /* input cleaner balance */
+        .index-center .add-note input {
+            flex: 1;
+            margin: 0;
+        }
+
+    /* notes grid */
+    .index-center .notes-container {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    /* note cards improved */
+    .index-center .note {
+        background: #fff3a0;
+        width: 150px;
+        min-height: 90px;
+        padding: 10px;
+        border-radius: 8px;
+        position: relative;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+        /* delete button */
+        .index-center .note button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+/* =========================
+   SMALL SCREEN FIX
+========================= */
+@media (max-width: 600px) {
+    .index-center .title {
+        font-size: 30px;
+    }
+
+    .index-center .add-note {
+        flex-direction: column;
+    }
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card, form {
+    animation: fadeIn 0.25s ease-in-out;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    .card {
+        width: 90%;
+        margin: 60px auto;
+    }
 }

@@ -1,0 +1,23 @@
+﻿@page
+@model DropZone.Pages.SignUpModel
+
+<div class="card">
+
+    <h2>Sign Up</h2>
+
+    <form method="post">
+
+        <input asp-for="Username" placeholder="Username" required />
+
+        <input asp-for="Password" type="password" placeholder="Password" required />
+
+        <button type="submit">Create Account</button>
+
+    </form>
+
+    <p style="color:green">@Model.Message</p>
+    <p style="color:red">@Model.Error</p>
+
+    <a asp-page="/Login" class="btn">Back to Login</a>
+
+</div>

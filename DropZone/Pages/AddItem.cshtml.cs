@@ -24,10 +24,10 @@ namespace DropZone.Pages
             c.Open();
 
             var cmd = new MySqlCommand(@"
-                INSERT INTO Items
-                (SellerID, BuyerName, DateDropped, price, holdingFee, itemStatus, placed, datePickedUp)
-                VALUES
-                (@sid, @b, @d, @p, @h, 'InDA', @pl, @dp)", c);
+        INSERT INTO Items
+        (SellerID, BuyerName, DateDropped, price, holdingFee, itemStatus, placed, datePickedUp)
+        VALUES
+        (@sid, @b, @d, @p, @h, 'InDA', @pl, @dp)", c);
 
             cmd.Parameters.AddWithValue("@sid", Item.SellerID);
             cmd.Parameters.AddWithValue("@b", Item.BuyerName ?? (object)DBNull.Value);
@@ -39,7 +39,13 @@ namespace DropZone.Pages
 
             cmd.ExecuteNonQuery();
 
-            Message = "Item added successfully (status = InDA)";
+            Message = "Item added successfully";
+
+            // ✅ CLEAR FORM AFTER SUBMIT
+            int sellerId = Item.SellerID;   
+            ModelState.Clear();
+            Item = new Item();              
+            Item.SellerID = sellerId;   
 
             return Page();
         }

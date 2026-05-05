@@ -1,18 +1,40 @@
-﻿﻿@page
+﻿@page
 @model DropZone.Pages.AllItemsModel
 
-<h2>All Items (NOT InDA)</h2>
+<h2>Items</h2>
 
 <a asp-page="SellerList">
     <button type="button">Back</button>
 </a>
+
+<br />
+<br />
+
+<!-- FILTER BUTTONS -->
+<a asp-page="AllItems" asp-route-sellerId="@Model.SellerID" asp-route-filter="All">
+    <button type="button">All Items</button>
+</a>
+
+<a asp-page="AllItems" asp-route-sellerId="@Model.SellerID" asp-route-filter="InDA">
+    <button type="button">InDA</button>
+</a>
+
+<a asp-page="AllItems" asp-route-sellerId="@Model.SellerID" asp-route-filter="PickedUp">
+    <button type="button">Picked Up</button>
+</a>
+
+<a asp-page="AllItems" asp-route-sellerId="@Model.SellerID" asp-route-filter="PulledOut">
+    <button type="button">Pulled Out</button>
+</a>
+
+<br />
+<br />
 
 @if (Model.Items.Count > 0)
 {
     <table border="1">
         <tr>
             <th>ItemID</th>
-            <th>SellerID</th>
             <th>Buyer</th>
             <th>DateDropped</th>
             <th>Price</th>
@@ -26,7 +48,6 @@
         {
             <tr>
                 <td>@i.ItemID</td>
-                <td>@i.SellerID</td>
                 <td>@i.BuyerName</td>
                 <td>@i.DateDropped</td>
                 <td>@i.Price</td>

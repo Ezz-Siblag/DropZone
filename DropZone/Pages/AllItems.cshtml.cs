@@ -7,17 +7,29 @@ namespace DropZone.Pages
     {
         public List<Item> Items { get; set; } = new();
 
+        public int SellerID { get; set; }
+        public string Filter { get; set; } = "All";
+
         string conn = "server=localhost;port=1108;database=DropZoneDB;user=root;password=;";
 
-        public void OnGet(int sellerId)
+        public void OnGet(int sellerId, string? filter)
         {
+            SellerID = sellerId;
+            Filter = filter ?? "All";
+
             using var c = new MySqlConnection(conn);
             c.Open();
 
-            // EXCLUDE InDA (opposite of LoadItems)
-            var cmd = new MySqlCommand(
-                "SELECT * FROM Items WHERE SellerID=@id AND itemStatus <> 'InDA'", c);
+            string query = "SELECT * FROM Items WHERE SellerID=@id";
 
+            if (Filter == "InDA")
+                query += " AND itemStatus = 'InDA'";
+            else if (Filter == "PickedUp")
+                query += " AND itemStatus = 'PickedUp'";
+            else if (Filter == "PulledOut")
+                query += " AND itemStatus = 'PulledOut'";
+
+            var cmd = new MySqlCommand(query, c);
             cmd.Parameters.AddWithValue("@id", sellerId);
 
             using var r = cmd.ExecuteReader();

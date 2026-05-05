@@ -25,7 +25,13 @@ namespace DropZone.Pages
         public IActionResult OnPostLoadItems()
         {
             LoadSellers();
-            LoadItems();
+
+            // IMPORTANT: ensure SellerID is preserved from form
+            if (SellerID > 0)
+            {
+                LoadItems();
+            }
+
             return Page();
         }
 
@@ -33,6 +39,13 @@ namespace DropZone.Pages
         {
             if (string.Equals(ActionType, "Update", StringComparison.OrdinalIgnoreCase))
                 return RedirectToPage("UpdateItem", new { id = ItemID });
+
+            if (SellerID <= 0)
+            {
+                Message = "Please select a seller first.";
+                LoadSellers();
+                return Page();
+            }
 
             if (string.Equals(ActionType, "PickedUp", StringComparison.OrdinalIgnoreCase))
                 UpdateStatus("Picked Up");
@@ -42,6 +55,7 @@ namespace DropZone.Pages
 
             LoadSellers();
             LoadItems();
+
             return Page();
         }
 
@@ -72,7 +86,10 @@ namespace DropZone.Pages
                 {
                     SellerID = r.GetInt32("SellerID"),
                     SellerName = r.GetString("SellerName"),
-                    DateAdded = r.GetString("DateAdded")
+
+                    // ✅ FIX: DateTime conversion (IMPORTANT)
+                    DateAdded = r.GetDateTime("DateAdded").ToString("yyyy-MM-dd"),
+                    ContactNumber = r["ContactNumber"]?.ToString()
                 });
             }
         }
@@ -94,7 +111,7 @@ namespace DropZone.Pages
                 Items.Add(new Item
                 {
                     ItemID = r.GetInt32("ItemID"),
-                    SellerID = r.GetInt32("SellerID"),
+             
                     BuyerName = r["BuyerName"]?.ToString(),
 
                     DateDropped = r["DateDropped"] == DBNull.Value
@@ -132,5 +149,6 @@ namespace DropZone.Pages
         public int SellerID { get; set; }
         public string SellerName { get; set; }
         public string DateAdded { get; set; }
+        public string ContactNumber { get; set; }
     }
 }
